@@ -265,10 +265,6 @@ perfectSetup := showPerfect and (setupShort == 8 and high >= high[1] and high >=
 
 
 plotchar(showTDs and showSetup and (not(showOnlyCompletion) or barstate.islast) and setupShort and setupCount == 1, title="Setup 1", char="①", location=location.abovebar, color=color.red)
-// plotchar(showSetup and (not(showOnlyCompletion) or barstate.islast) and setupShort and setupCount == 2, title="Setup 2", char="②", location=location.abovebar, color=color.red, transp=0)
-// plotchar(showSetup and (not(showOnlyCompletion) or barstate.islast) and setupShort and setupCount == 3, title="Setup 3", char="③", location=location.abovebar, color=color.red, transp=0)
-// plotchar(showSetup and (not(showOnlyCompletion) or barstate.islast) and setupShort and setupCount == 4, title="Setup 4", char="④", location=location.abovebar, color=color.red, transp=0)
-// plotchar(showSetup and (not(showOnlyCompletion) or barstate.islast) and setupShort and setupCount == 5, title="Setup 5", char="⑤", location=location.abovebar, color=color.red, transp=0)
 plotchar(showTDs and showSetup and (not showOnlyCompletion or barstate.islast) and setupShort and setupCount == 6, title="Setup 6", char="6", location=location.abovebar, color=color.red)
 plotchar(showTDs and showSetup and (not showOnlyCompletion or barstate.islast) and setupShort and setupCount == 7, title="Setup 7", char="7", location=location.abovebar, color=color.red)
 plotchar(showTDs and not perfectSetup and (not showOnlyCompletion or barstate.islast) and showSetup and setupShort and setupCount == 8, title="Setup 8", char="⑧", location=location.abovebar, color=color.red)
@@ -280,10 +276,6 @@ plotchar(showTDs and perfectSetup and showSetup and setupShort and setupCount ==
 //buy setup 
 
 plotchar(showTDs and showSetup and (not(showOnlyCompletion) or barstate.islast) and setupLong and setupCount == 1, title="Setup 1", char="①", location=location.belowbar, color=color.green)
-// plotchar(showSetup and (not(showOnlyCompletion) or barstate.islast) and setupLong and setupCount == 2, title="Setup 2", char="②", location=location.belowbar, color=color.green, transp=0)
-// plotchar(showSetup and (not(showOnlyCompletion) or barstate.islast) and setupLong and setupCount == 3, title="Setup 3", char="③", location=location.belowbar, color=color.green, transp=0)
-// plotchar(showSetup and (not(showOnlyCompletion) or barstate.islast) and setupLong and setupCount == 4, title="Setup 4", char="④", location=location.belowbar, color=color.green, transp=0)
-// plotchar(showSetup and (not(showOnlyCompletion) or barstate.islast) and setupLong and setupCount == 5, title="Setup 5", char="⑤", location=location.belowbar, color=color.green, transp=0)
 plotchar(showTDs and showSetup and (not showOnlyCompletion or barstate.islast) and setupLong and setupCount == 6, title="Setup 6", char="6", location=location.belowbar, color=color.green)
 plotchar(showTDs and showSetup and (not showOnlyCompletion or barstate.islast) and setupLong and setupCount == 7, title="Setup 7", char="7", location=location.belowbar, color=color.green)
 plotchar(showTDs and not perfectSetup and (not showOnlyCompletion or barstate.islast) and showSetup and setupLong and setupCount == 8, title="Setup 8", char="⑧",location=location.belowbar,  color=color.green)
@@ -343,44 +335,12 @@ perfectCountdown := showPerfect and
    
 // Long countdown
 
-// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownLong and cdownCount == 1 and cdownCount[1] != 1, title="Countdown 1", char="①", location=location.belowbar, color=color.green, transp=0)
-// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownLong and cdownCount == 2 and cdownCount[1] == 1, title="Countdown 2", char="②", location=location.belowbar, color=color.green, transp=0)
-// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownLong and cdownCount == 3 and cdownCount[1] == 2, title="Countdown 3", char="③", location=location.belowbar, color=color.green, transp=0)
-// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownLong and cdownCount == 4 and cdownCount[1] == 3, title="Countdown 4", char="④", location=location.belowbar, color=color.green, transp=0)
-// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownLong and cdownCount == 5 and cdownCount[1] == 4, title="Countdown 5", char="⑤", location=location.belowbar, color=color.green, transp=0)
-// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownLong and cdownCount == 6 and cdownCount[1] == 5, title="Countdown 6", char="⑥", location=location.belowbar, color=color.green, transp=0)
-// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownLong and cdownCount == 7 and cdownCount[1] == 6, title="Countdown 7", char="⑦", location=location.belowbar, color=color.green, transp=0)
-// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownLong and cdownCount == 8 and cdownCount[1] == 7, title="Countdown 8", char="⑧", location=location.belowbar, color=color.green, transp=0)
-// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownLong and cdownCount == 9 and cdownCount[1] == 8, title="Countdown 9", char="⑨", location=location.belowbar, color=color.green, transp=0)
-// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownLong and cdownCount == 10 and cdownCount[1] == 9, title="Countdown 10", char="⑩", location=location.belowbar, color=color.green, transp=0)
-// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownLong and cdownCount == 11 and cdownCount[1] == 10, title="Countdown 11", char="⑪", location=location.belowbar, color=color.green, transp=0)
-// plotchar(showCountdown and (not showOnlyCompletion or barstate.islast) and cdownLong and cdownCount == 12 and cdownCount[1] == 11, title="Countdown 12", char="⑫", location=location.belowbar, color=color.green, transp=0)
-// plotchar(not perfectCountdown and showCountdown and cdownCount == 13 and cdownLong and cdownCount[1] == 12, title="Countdown 13", char="⑬", location=location.belowbar, color=color.green, transp=0)
-// plotchar(perfectCountdown and showCountdown and cdownCount == 13 and cdownLong and cdownCount[1] == 12, title="Perfect Countdown 13", char="⓭", location=location.belowbar, color=color.green, transp=0)
-
-
 plotshape(showTDs and showCountdown and (not showOnlyCompletion or barstate.islast) and cdownLong and cdownCount == 12 and cdownCount[1] == 11, style=shape.arrowup, text= "⑫", title="Countdown 12", location=location.belowbar, color=color.green)
 plotshape(showTDs and not perfectCountdown and showCountdown and cdownCount == 13 and cdownLong and cdownCount[1] == 12, style=shape.arrowup,  text= "⑬",  title="Countdown 13", location=location.belowbar, color=color.green)
 plotshape(showTDs and perfectCountdown and showCountdown and cdownCount == 13 and cdownLong and cdownCount[1] == 12, style=shape.arrowup, text= "⓭",  title="Perfect CountD 13", location=location.belowbar, color=color.green)
 
 
 // short countdown
-
-// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownShort and cdownCount == 1 and cdownCount[1] != 1, title="Countdown 1", char="①", location=location.abovebar, color=color.red, transp=0)
-// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownShort and cdownCount == 2 and cdownCount[1] == 1, title="Countdown 2", char="②", location=location.abovebar, color=color.red, transp=0)
-// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownShort and cdownCount == 3 and cdownCount[1] == 2, title="Countdown 3", char="③", location=location.abovebar, color=color.red, transp=0)
-// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownShort and cdownCount == 4 and cdownCount[1] == 3, title="Countdown 4", char="④", location=location.abovebar, color=color.red, transp=0)
-// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownShort and cdownCount == 5 and cdownCount[1] == 4, title="Countdown 5", char="⑤", location=location.abovebar, color=color.red, transp=0)
-// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownShort and cdownCount == 6 and cdownCount[1] == 5, title="Countdown 6", char="⑥", location=location.abovebar, color=color.red, transp=0)
-// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownShort and cdownCount == 7 and cdownCount[1] == 6, title="Countdown 7", char="⑦", location=location.abovebar, color=color.red, transp=0)
-// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownShort and cdownCount == 8 and cdownCount[1] == 7, title="Countdown 8", char="⑧", location=location.abovebar, color=color.red, transp=0)
-// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownShort and cdownCount == 9 and cdownCount[1] == 8, title="Countdown 9", char="⑨", location=location.abovebar, color=color.red, transp=0)
-// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownShort and cdownCount == 10 and cdownCount[1] == 9, title="Countdown 10", char="⑩", location=location.abovebar, color=color.red, transp=0)
-//plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownShort and cdownCount == 11 and cdownCount[1] == 10, title="Countdown 11", char="⑪", location=location.abovebar, color=color.red, transp=0)
-// plotchar(showCountdown and (not showOnlyCompletion or barstate.islast) and cdownShort and cdownCount == 12 and cdownCount[1] == 11, title="Countdown 12", char="⑫", location=location.abovebar, color=color.red, transp=0)
-// plotchar(not perfectCountdown and showCountdown and cdownCount == 13 and cdownShort and cdownCount[1] == 12, title="Countdown 13", char="⑬", location=location.abovebar, color=color.red, transp=0)
-// plotchar(perfectCountdown and showCountdown and cdownCount == 13 and cdownShort and cdownCount[1] == 12, title="Perfect Countdown 13", char="⓭", location=location.abovebar, color=color.red, transp=0)
-
 
 plotshape(showTDs and showCountdown and (not showOnlyCompletion or barstate.islast) and cdownShort and cdownCount == 12 and cdownCount[1] == 11,  style=shape.arrowdown,  title="Countdown 12", text="⑫", location=location.abovebar, color=color.red)
 plotshape(showTDs and not perfectCountdown and showCountdown and cdownCount == 13 and cdownShort and cdownCount[1] == 12, style=shape.arrowdown, title="Countdown 13", text="⑬", location=location.abovebar, color=color.red)
@@ -402,9 +362,6 @@ tdstSupport := not showTDST ? na :
    setupShort == 9 ? lowest_2 : close < tdstSupport[1] ? na : tdstSupport[1]
 
 alertcondition(close > tdstResistance[1] or close < tdstSupport[1], title="Close outside TDST range", message="Close outside TDST range")
-
-// plot(tdstResistance, title="TDST Resistance", color=longColour, style=plot.style_linebr)
-// plot(tdstSupport, title="TDST Support", color=shortColour, style=plot.style_linebr)
 
 plot(tdstResistance, title="TDST Resistance", color=color.red, style=plot.style_linebr)
 plot(tdstSupport, title="TDST Support", color=color.green, style=plot.style_linebr)
