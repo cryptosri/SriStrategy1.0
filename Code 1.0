@@ -1,0 +1,431 @@
+// This source code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// © sri_crypto
+
+//@version=4
+
+study(title="SRI Strategy 1.0", shorttitle="SRI Strategy", overlay=true)
+ 
+
+shemas = input(false, "Show EMAs")
+shsmas = input(false, "Show SMAs")
+shrsibarc = input(true, "Show RSI Bar Colors")
+showTDs = input(true, title="Show TD Setup and Countdown")
+shichim = input(false, title="Show Ichimoku Clouds")
+shbb = input(false, title="Show Bolinger Bands")
+shst = input(false, title="Show Super Trend")
+shbbs = input(false, title="Show BB Signals")
+
+//colors
+
+sblue0 = color.new(color.blue, 0)
+spurple0 = color.new(color.purple, 0)
+sgreen0 = color.new(color.green, 0)
+syellow0 = color.new(color.yellow, 0)
+sred0 = color.new(color.red, 0)
+sorange0 = color.new(color.orange, 0)
+sblack0 = color.new(color.black, 0)
+swhite1 = color.new(color.white, 100)
+sdblue0 = color.new(#001c68, 0)
+
+//Multi-Time Frame EMAs
+
+src = input(close, title="Source")
+ssema1res = input(title="EMA 1 Time Frame", type=input.resolution, defval="", group="EMAs")
+ssema1l = input(8, title="EMA 1 Period", group="EMAs")
+ssema2res = input(title="EMA 2 Time Frame", type=input.resolution, defval="", group="EMAs")
+ssema2l = input(13, title="EMA 2 Period", group="EMAs")
+ssema3res = input(title="EMA 3 Time Frame", type=input.resolution, defval="", group="EMAs")
+ssema3l = input(21, title="EMA 3 Period", group="EMAs")
+ssema4res = input(title="EMA 4 Time Frame", type=input.resolution, defval="", group="EMAs")
+ssema4l = input(34, title="EMA 4 Period", group="EMAs")
+ssema5res = input(title="EMA 5 Time Frame", type=input.resolution, defval="", group="EMAs")
+ssema5l = input(55, title="EMA 5 Period", group="EMAs")
+ssema6res = input(title="EMA 6 Time Frame", type=input.resolution, defval="", group="EMAs")
+ssema6l = input(100, title="EMA 6 Period", group="EMAs")
+ssema7res = input(title="EMA 7 Time Frame", type=input.resolution, defval="", group="EMAs")
+ssema7l = input(200, title="EMA 7 Period", group="EMAs")
+
+ssema1 = security(syminfo.tickerid, ssema1res, ema(src, ssema1l))
+ssema2 = security(syminfo.tickerid, ssema2res, ema(src, ssema2l))
+ssema3 = security(syminfo.tickerid, ssema3res, ema(src, ssema3l))
+ssema4 = security(syminfo.tickerid, ssema4res, ema(src, ssema4l))
+ssema5 = security(syminfo.tickerid, ssema5res, ema(src, ssema5l))
+ssema6 = security(syminfo.tickerid, ssema6res, ema(src, ssema6l))
+ssema7 = security(syminfo.tickerid, ssema7res, ema(src, ssema7l))
+
+plot(shemas ? ssema1 : na, title="MTF EMA 1", color=sblue0, linewidth=1, offset=0)
+plot(shemas ? ssema2 : na, title="MTF EMA 2", color=spurple0, linewidth=1, offset=0)
+plot(shemas ? ssema3 : na, title="MTF EMA 3", color=sgreen0, linewidth=1, offset=0)
+plot(shemas ? ssema4 : na, title="MTF EMA 4", color=syellow0, linewidth=1, offset=0)
+plot(shemas ? ssema5 : na, title="MTF EMA 5", color=sred0, linewidth=2, offset=0)
+plot(shemas ? ssema6 : na, title="MTF EMA 6", color=sorange0, linewidth=2, offset=0)
+plot(shemas ? ssema7 : na, title="MTF EMA 7", color=sblack0, linewidth=2, offset=0)
+
+
+//Multi-Time Frame SMAs
+
+
+sssma1res = input(title="SMA 1 Time Frame", type=input.resolution, defval="", group="SMAs")
+sssma1l = input(10, title="SMA 1 Period", group="SMAs")
+sssma2res = input(title="SMA 2 Time Frame", type=input.resolution, defval="", group="SMAs")
+sssma2l = input(20, title="SMA 2 Period", group="SMAs")
+sssma3res = input(title="SMA 3 Time Frame", type=input.resolution, defval="", group="SMAs")
+sssma3l = input(30, title="SMA 3 Period", group="SMAs")
+sssma4res = input(title="SMA 4 Time Frame", type=input.resolution, defval="", group="SMAs")
+sssma4l = input(50, title="SMA 4 Period", group="SMAs")
+sssma5res = input(title="SMA 5 Time Frame", type=input.resolution, defval="", group="SMAs")
+sssma5l = input(100, title="SMA 5 Period", group="SMAs")
+sssma6res = input(title="SMA 6 Time Frame", type=input.resolution, defval="", group="SMAs")
+sssma6l = input(200, title="SMA 6 Period", group="SMAs")
+sssma7res = input(title="SMA 7 Time Frame", type=input.resolution, defval="", group="SMAs")
+sssma7l = input(300, title="SMA 7 Period", group="SMAs")
+
+sssma1 = security(syminfo.tickerid, sssma1res, sma(src, sssma1l))
+sssma2 = security(syminfo.tickerid, sssma2res, sma(src, sssma2l))
+sssma3 = security(syminfo.tickerid, sssma3res, sma(src, sssma3l))
+sssma4 = security(syminfo.tickerid, sssma4res, sma(src, sssma4l))
+sssma5 = security(syminfo.tickerid, sssma5res, sma(src, sssma5l))
+sssma6 = security(syminfo.tickerid, sssma6res, sma(src, sssma6l))
+sssma7 = security(syminfo.tickerid, sssma7res, sma(src, sssma7l))
+
+plot(shsmas ? sssma1 : na, title="MTF SMA 1", color=sblue0, linewidth=1, offset=0)
+plot(shsmas ? sssma2 : na, title="MTF SMA 2", color=spurple0, linewidth=1, offset=0)
+plot(shsmas ? sssma3 : na, title="MTF SMA 3", color=sgreen0, linewidth=1, offset=0)
+plot(shsmas ? sssma4 : na, title="MTF SMA 4", color=sred0, linewidth=1, offset=0)
+plot(shsmas ? sssma5 : na, title="MTF SMA 5", color=sorange0, linewidth=2, offset=0)
+plot(shsmas ? sssma6 : na, title="MTF SMA 6", color=sblack0, linewidth=2, offset=0)
+plot(shsmas ? sssma7 : na, title="MTF SMA 7", color=sdblue0, linewidth=2, offset=0)
+
+// RSI Bar Colors
+
+ssr1len = input(14, minval=1, title="RSI Length", group="RSI Colors")
+rsimob = input(70, "RSI OB Level")
+rsimos = input(30, "RSI OS Level")
+
+rsi = rsi(src, ssr1len)
+
+RSIover = rsi > 85
+RSI85 = rsi < 85 and rsi > 80
+RSI80 = rsi < 80 and rsi > 75
+RSI75 = rsi < 75 and rsi > rsimob
+RSI30 = rsi < rsimos and rsi > 25
+RSI25 = rsi < 25 and rsi > 20
+RSI20 = rsi < 20 and rsi > 15
+RSI15 = rsi < 15 and rsi > 10
+RSIunder = rsi < 10
+
+barcolor (shrsibarc ? (RSIunder? #ffffff: RSI15? #5142f5: RSI20? #4284f5: RSI25? #42aaf5: RSI30? #42e0f5: RSI75? #f5cb42: RSI80? #f58742: RSI85? #ff5500: RSIover? #ffffff: na):na, title="RSI Colors")
+
+//Ichimoku Clouds
+
+conversionPeriods = input(10, minval=1, title="Conversion Line Length",  group="Ichimoku Clouds")
+basePeriods = input(30, minval=1, title="Base Line Length", group="Ichimoku Clouds")
+laggingSpan2Periods = input(60, minval=1, title="Leading Span B Length", group="Ichimoku Clouds")
+displacement = input(30, minval=1, title="Displacement", group="Ichimoku Clouds")
+donchian(len) => avg(lowest(len), highest(len))
+conversionLine = donchian(conversionPeriods)
+baseLine = donchian(basePeriods)
+leadLine1 = avg(conversionLine, baseLine)
+leadLine2 = donchian(laggingSpan2Periods)
+plot(shichim ? conversionLine : na, color=#2962FF, title="Ichi Conversion Line")
+plot(shichim ? baseLine : na, color=#B71C1C, title="Ichi Base Line")
+plot(shichim ? close : na, offset = -displacement + 1, color=#43A047, title="Ichi Lagging Span")
+p1 = plot(shichim ? leadLine1 : na, offset = displacement - 1, color=#A5D6A7,
+	 title="Ichi Leading Span A")
+p2 = plot(shichim ? leadLine2 : na, offset = displacement - 1, color=#EF9A9A,
+	 title="Ichi Leading Span B")
+fill(p1, p2, color = leadLine1 > leadLine2 ? color.rgb(67, 160, 71, 90) : color.rgb(244, 67, 54, 90), title="Ichimoku Kumo Cloud")
+
+//Super Trend
+
+atrPeriod = input(10, "ATR Length", group="Super Trend")
+factor = input(3, "Factor",  group="Super Trend")
+
+[supertrend, direction] = supertrend(factor, atrPeriod)
+
+bodyMiddle = plot(shst ? ((open + close) / 2) : na, "Super Trend Middle", display=display.none)
+upTrend = plot(shst ? (direction < 0 ? supertrend : na) : na, "Up Trend", color = color.green, style=plot.style_linebr)
+downTrend = plot(shst ? (direction < 0? na : supertrend) : na, "Down Trend", color = color.red, style=plot.style_linebr)
+
+fill(bodyMiddle, upTrend, color.new(color.green, 90), fillgaps=false, title="Uptrend Highlight")
+fill(bodyMiddle, downTrend, color.new(color.red, 90), fillgaps=false, title="Downtrend Highlight")
+
+//Bollinger Bands
+
+lengthbb = input(20, minval=1, group="Bollinger Bands")
+// src = input(close, title="Source")
+mult = input(2.0, minval=0.001, maxval=50, title="StdDev", group="Bollinger Bands")
+basis = sma(src, lengthbb)
+dev = mult * stdev(src, lengthbb)
+upper = basis + dev
+lower = basis - dev
+offset = input(0, "Offset", type = input.integer, minval = -500, maxval = 500, group="Bollinger Bands")
+plot(shbb ? basis : na, "BB Basis", color=#FF6D00, offset = offset)
+pbb1 = plot(shbb ? upper : na, "BB Upper", color=#2962FF, offset = offset)
+pbb2 = plot(shbb ? lower : na, "BB Lower", color=#2962FF, offset = offset)
+fill(pbb1, pbb2, title = "BB Background", color=color.rgb(33, 150, 243, 95))
+
+// Stoch
+
+periodK = input(9, title="%K Length", minval=1, group="BB Strategy Stoch")
+smoothK = input(3, title="%K Smoothing", minval=1, group="BB Strategy Stoch")
+periodD = input(3, title="%D Smoothing", minval=1), group="BB Strategy Stoch"
+k = sma(stoch(close, high, low, periodK), smoothK)
+d = sma(k, periodD)
+
+
+// DEMA
+
+lengthd = input(15, minval=1, title="MA Length", group="BB Strategy MA")
+e1 = ema(close, lengthd)
+e2 = ema(e1, lengthd)
+dema = 2 * e1 - e2
+
+
+// RSI
+
+rsibb = rsi(close, 2)
+rsibbos = 9
+rsibbob = 91
+
+
+//BB Strategy
+
+shortbb = open > close and close < dema and (high > upper or high[1] > upper) and k[1] > 65 and (rsibb > rsibbob or rsibb[1] > rsibbob or rsibb[2] > rsibbob or rsibb[3] > rsibbob)
+longbb = open < close and close > dema and (low < lower or low[1] < lower) and k[1] < 35 and (rsibb < rsibbos or rsibb[1] < rsibbos or rsibb[2] < rsibbos or rsibb[3] < rsibbos)
+
+    
+plotshape(shbbs ? shortbb : na, style=shape.labeldown, color=sorange0, location=location.abovebar, size=size.tiny, title="Short Label", text= "SS", textcolor=color.white)
+plotshape(shbbs ? longbb : na, style=shape.labelup, color=sblue0, location=location.belowbar, size=size.tiny, title="Long Label", text= "BB", textcolor=color.white)
+
+//TD setup and Countdown
+
+showSetup = input(true, "Show TD Setup", group="TD Settings")
+showCountdown = input(true, "Show TD Countdown", group="TD Settings")
+showPerfect = input(true, "Show Perfect Counts", group="TD Settings")
+//invertColours = input(false, "Invert colours")
+showOnlyCompletion = input(true, "Only Show Completions", group="TD Settings")
+showTDST = input(false, "Show TDST Support and Resistance", group="TD Settings")
+setupRecyclesOnNextBar = input(false, "Setup Recycles on the Next Bar", group="TD Settings")
+flip = input(true, "Setup commences after TD Price Flip", group="TD Settings")
+showRisk = input(false, "Show TD Risk Lines", group="TD Settings")
+volatilitySmoothing = input(false, "Volatility Smoothing", group="TD Settings")
+
+// shortColour = invertColours ? color.red : color.green
+// longColour = invertColours ? color.green : color.red
+// smoothedColour = color.black
+
+setupShort = int(na)
+setupLong = int(na)
+setupCount = int(na)
+setupColour = color(na)
+perfectSetup = bool(na)
+
+setupShort := if close < close[4] and (not volatilitySmoothing or close < close[5])
+    0
+else
+    if flip
+        if nz(setupShort[1]) == 0 and close[1] < close[5] and close > close[4]
+            1
+        else
+            if nz(setupShort[1]) == 0
+                0
+            else
+                nz(setupShort[1] + 1)
+    else
+        if setupShort[1] == 9
+            setupRecyclesOnNextBar ? 1 : 0
+        else
+            nz(setupShort[1] + 1)
+
+setupLong := if close > close[4] and (not volatilitySmoothing or close > close[5])
+    0
+else
+    if flip
+        if nz(setupLong[1]) == 0 and close[1] > close[5] and close < close[4]
+            1
+        else
+            if nz(setupLong[1]) == 0
+                0
+            else
+                nz(setupLong[1] + 1)
+    else
+        if setupLong[1] == 9
+            setupRecyclesOnNextBar ? 1 : 0
+        else
+            nz(setupLong[1] + 1)
+
+setupCount := max(setupShort, setupLong)
+//setupColour := setupShort > 0 ? setupLong > 0 ? smoothedColour : shortColour : longColour
+
+perfectSetup := showPerfect and (setupShort == 8 and high >= high[1] and high >= high[2] or 
+   setupShort == 9 and high >= high[2] and high >= high[3] or 
+   setupLong == 8 and low <= low[1] and low <= low[2] or 
+   setupLong == 9 and low <= low[2] and low <= low[3])
+
+
+plotchar(showTDs and showSetup and (not(showOnlyCompletion) or barstate.islast) and setupShort and setupCount == 1, title="Setup 1", char="①", location=location.abovebar, color=color.red)
+// plotchar(showSetup and (not(showOnlyCompletion) or barstate.islast) and setupShort and setupCount == 2, title="Setup 2", char="②", location=location.abovebar, color=color.red, transp=0)
+// plotchar(showSetup and (not(showOnlyCompletion) or barstate.islast) and setupShort and setupCount == 3, title="Setup 3", char="③", location=location.abovebar, color=color.red, transp=0)
+// plotchar(showSetup and (not(showOnlyCompletion) or barstate.islast) and setupShort and setupCount == 4, title="Setup 4", char="④", location=location.abovebar, color=color.red, transp=0)
+// plotchar(showSetup and (not(showOnlyCompletion) or barstate.islast) and setupShort and setupCount == 5, title="Setup 5", char="⑤", location=location.abovebar, color=color.red, transp=0)
+plotchar(showTDs and showSetup and (not showOnlyCompletion or barstate.islast) and setupShort and setupCount == 6, title="Setup 6", char="6", location=location.abovebar, color=color.red)
+plotchar(showTDs and showSetup and (not showOnlyCompletion or barstate.islast) and setupShort and setupCount == 7, title="Setup 7", char="7", location=location.abovebar, color=color.red)
+plotchar(showTDs and not perfectSetup and (not showOnlyCompletion or barstate.islast) and showSetup and setupShort and setupCount == 8, title="Setup 8", char="⑧", location=location.abovebar, color=color.red)
+plotchar(showTDs and not perfectSetup and showSetup and setupShort and setupCount == 9, title="Setup 9", char="⓽",  location=location.abovebar,color=color.red)
+
+plotchar(showTDs and perfectSetup and showSetup and setupShort and setupCount == 8, title="Perfect setup 8", char="➑",  location=location.abovebar,color=color.red)
+plotchar(showTDs and perfectSetup and showSetup and setupShort and setupCount == 9, title="Perfect setup 9", char="➒",  location=location.abovebar,color=color.red)
+
+//buy setup 
+
+plotchar(showTDs and showSetup and (not(showOnlyCompletion) or barstate.islast) and setupLong and setupCount == 1, title="Setup 1", char="①", location=location.belowbar, color=color.green)
+// plotchar(showSetup and (not(showOnlyCompletion) or barstate.islast) and setupLong and setupCount == 2, title="Setup 2", char="②", location=location.belowbar, color=color.green, transp=0)
+// plotchar(showSetup and (not(showOnlyCompletion) or barstate.islast) and setupLong and setupCount == 3, title="Setup 3", char="③", location=location.belowbar, color=color.green, transp=0)
+// plotchar(showSetup and (not(showOnlyCompletion) or barstate.islast) and setupLong and setupCount == 4, title="Setup 4", char="④", location=location.belowbar, color=color.green, transp=0)
+// plotchar(showSetup and (not(showOnlyCompletion) or barstate.islast) and setupLong and setupCount == 5, title="Setup 5", char="⑤", location=location.belowbar, color=color.green, transp=0)
+plotchar(showTDs and showSetup and (not showOnlyCompletion or barstate.islast) and setupLong and setupCount == 6, title="Setup 6", char="6", location=location.belowbar, color=color.green)
+plotchar(showTDs and showSetup and (not showOnlyCompletion or barstate.islast) and setupLong and setupCount == 7, title="Setup 7", char="7", location=location.belowbar, color=color.green)
+plotchar(showTDs and not perfectSetup and (not showOnlyCompletion or barstate.islast) and showSetup and setupLong and setupCount == 8, title="Setup 8", char="⑧",location=location.belowbar,  color=color.green)
+plotchar(showTDs and not perfectSetup and showSetup and setupLong and setupCount == 9, title="Setup 9", char="⓽", location=location.belowbar, color=color.green)
+
+plotchar(showTDs and perfectSetup and showSetup and setupLong and setupCount == 8, title="Perfect setup 8", char="➑", location=location.belowbar, color=color.green)
+plotchar(showTDs and perfectSetup and showSetup and setupLong and setupCount == 9, title="Perfect setup 9", char="➒", location=location.belowbar, color=color.green)
+
+
+cdownShort = int(na)
+cdownLong = int(na)
+cdownColour = color(na)
+cdownCount = int(na)
+perfect8 = float(na)
+perfectCountdown = bool(na)
+lastCompletedSetup = int(na)
+setupHigh = float(na)
+setupLow = float(na)
+cancelCountdown = bool(na)
+recycleCountdown = bool(na)
+LONG = -1
+SHORT = 1
+CANCELLED = 0
+
+recycleCountdown := if setupShort == 9 and lastCompletedSetup[1] == SHORT or setupLong == 9 and lastCompletedSetup[1] == LONG
+    highest(9) - lowest(9) >= setupHigh[1] - setupLow[1] and 
+       (setupHigh[1] - setupLow[1]) * 1.618 > highest(9) - lowest(9)
+
+highest_1 = highest(9)
+setupHigh := recycleCountdown or setupShort == 9 and lastCompletedSetup[1] != SHORT or 
+   setupLong == 9 and lastCompletedSetup[1] != LONG ? highest_1 : setupHigh[1]
+lowest_1 = lowest(9)
+setupLow := recycleCountdown or setupShort == 9 and lastCompletedSetup[1] != SHORT or 
+   setupLong == 9 and lastCompletedSetup[1] != LONG ? lowest_1 : setupLow[1]
+
+cancelCountdown := lastCompletedSetup[1] == SHORT and high < setupLow or 
+   lastCompletedSetup[1] == LONG and low > setupHigh or recycleCountdown
+
+lastCompletedSetup := setupLong == 9 ? LONG : 
+   setupShort == 9 ? SHORT : cdownShort[1] == 13 and setupShort[1] != 9 or 
+   cdownLong[1] == 13 and setupLong[1] != 9 or cancelCountdown ? CANCELLED : 
+   lastCompletedSetup[1]
+
+cdownShort := nz(lastCompletedSetup) != SHORT ? 0 : 
+   close >= high[2] ? nz(cdownShort[1]) % 13 + 1 : nz(cdownShort[1]) % 13
+cdownLong := nz(lastCompletedSetup) != LONG ? 0 : 
+   close <= low[2] ? nz(cdownLong[1]) % 13 + 1 : nz(cdownLong[1]) % 13
+
+cdownCount := max(cdownShort, cdownLong)
+//cdownColour := cdownShort > 0 ? shortColour : longColour
+
+perfect8 := cdownCount < 8 ? na : 
+   cdownCount == 8 and cdownCount[1] == 7 ? close : perfect8[1]
+perfectCountdown := showPerfect and 
+   (cdownShort == 13 and high >= perfect8 or cdownLong == 13 and low <= perfect8)
+   
+   
+// Long countdown
+
+// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownLong and cdownCount == 1 and cdownCount[1] != 1, title="Countdown 1", char="①", location=location.belowbar, color=color.green, transp=0)
+// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownLong and cdownCount == 2 and cdownCount[1] == 1, title="Countdown 2", char="②", location=location.belowbar, color=color.green, transp=0)
+// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownLong and cdownCount == 3 and cdownCount[1] == 2, title="Countdown 3", char="③", location=location.belowbar, color=color.green, transp=0)
+// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownLong and cdownCount == 4 and cdownCount[1] == 3, title="Countdown 4", char="④", location=location.belowbar, color=color.green, transp=0)
+// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownLong and cdownCount == 5 and cdownCount[1] == 4, title="Countdown 5", char="⑤", location=location.belowbar, color=color.green, transp=0)
+// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownLong and cdownCount == 6 and cdownCount[1] == 5, title="Countdown 6", char="⑥", location=location.belowbar, color=color.green, transp=0)
+// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownLong and cdownCount == 7 and cdownCount[1] == 6, title="Countdown 7", char="⑦", location=location.belowbar, color=color.green, transp=0)
+// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownLong and cdownCount == 8 and cdownCount[1] == 7, title="Countdown 8", char="⑧", location=location.belowbar, color=color.green, transp=0)
+// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownLong and cdownCount == 9 and cdownCount[1] == 8, title="Countdown 9", char="⑨", location=location.belowbar, color=color.green, transp=0)
+// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownLong and cdownCount == 10 and cdownCount[1] == 9, title="Countdown 10", char="⑩", location=location.belowbar, color=color.green, transp=0)
+// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownLong and cdownCount == 11 and cdownCount[1] == 10, title="Countdown 11", char="⑪", location=location.belowbar, color=color.green, transp=0)
+// plotchar(showCountdown and (not showOnlyCompletion or barstate.islast) and cdownLong and cdownCount == 12 and cdownCount[1] == 11, title="Countdown 12", char="⑫", location=location.belowbar, color=color.green, transp=0)
+// plotchar(not perfectCountdown and showCountdown and cdownCount == 13 and cdownLong and cdownCount[1] == 12, title="Countdown 13", char="⑬", location=location.belowbar, color=color.green, transp=0)
+// plotchar(perfectCountdown and showCountdown and cdownCount == 13 and cdownLong and cdownCount[1] == 12, title="Perfect Countdown 13", char="⓭", location=location.belowbar, color=color.green, transp=0)
+
+
+plotshape(showTDs and showCountdown and (not showOnlyCompletion or barstate.islast) and cdownLong and cdownCount == 12 and cdownCount[1] == 11, style=shape.arrowup, text= "⑫", title="Countdown 12", location=location.belowbar, color=color.green)
+plotshape(showTDs and not perfectCountdown and showCountdown and cdownCount == 13 and cdownLong and cdownCount[1] == 12, style=shape.arrowup,  text= "⑬",  title="Countdown 13", location=location.belowbar, color=color.green)
+plotshape(showTDs and perfectCountdown and showCountdown and cdownCount == 13 and cdownLong and cdownCount[1] == 12, style=shape.arrowup, text= "⓭",  title="Perfect CountD 13", location=location.belowbar, color=color.green)
+
+
+// short countdown
+
+// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownShort and cdownCount == 1 and cdownCount[1] != 1, title="Countdown 1", char="①", location=location.abovebar, color=color.red, transp=0)
+// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownShort and cdownCount == 2 and cdownCount[1] == 1, title="Countdown 2", char="②", location=location.abovebar, color=color.red, transp=0)
+// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownShort and cdownCount == 3 and cdownCount[1] == 2, title="Countdown 3", char="③", location=location.abovebar, color=color.red, transp=0)
+// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownShort and cdownCount == 4 and cdownCount[1] == 3, title="Countdown 4", char="④", location=location.abovebar, color=color.red, transp=0)
+// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownShort and cdownCount == 5 and cdownCount[1] == 4, title="Countdown 5", char="⑤", location=location.abovebar, color=color.red, transp=0)
+// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownShort and cdownCount == 6 and cdownCount[1] == 5, title="Countdown 6", char="⑥", location=location.abovebar, color=color.red, transp=0)
+// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownShort and cdownCount == 7 and cdownCount[1] == 6, title="Countdown 7", char="⑦", location=location.abovebar, color=color.red, transp=0)
+// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownShort and cdownCount == 8 and cdownCount[1] == 7, title="Countdown 8", char="⑧", location=location.abovebar, color=color.red, transp=0)
+// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownShort and cdownCount == 9 and cdownCount[1] == 8, title="Countdown 9", char="⑨", location=location.abovebar, color=color.red, transp=0)
+// plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownShort and cdownCount == 10 and cdownCount[1] == 9, title="Countdown 10", char="⑩", location=location.abovebar, color=color.red, transp=0)
+//plotchar(showCountdown and (not(showOnlyCompletion) or barstate.islast) and cdownShort and cdownCount == 11 and cdownCount[1] == 10, title="Countdown 11", char="⑪", location=location.abovebar, color=color.red, transp=0)
+// plotchar(showCountdown and (not showOnlyCompletion or barstate.islast) and cdownShort and cdownCount == 12 and cdownCount[1] == 11, title="Countdown 12", char="⑫", location=location.abovebar, color=color.red, transp=0)
+// plotchar(not perfectCountdown and showCountdown and cdownCount == 13 and cdownShort and cdownCount[1] == 12, title="Countdown 13", char="⑬", location=location.abovebar, color=color.red, transp=0)
+// plotchar(perfectCountdown and showCountdown and cdownCount == 13 and cdownShort and cdownCount[1] == 12, title="Perfect Countdown 13", char="⓭", location=location.abovebar, color=color.red, transp=0)
+
+
+plotshape(showTDs and showCountdown and (not showOnlyCompletion or barstate.islast) and cdownShort and cdownCount == 12 and cdownCount[1] == 11,  style=shape.arrowdown,  title="Countdown 12", text="⑫", location=location.abovebar, color=color.red)
+plotshape(showTDs and not perfectCountdown and showCountdown and cdownCount == 13 and cdownShort and cdownCount[1] == 12, style=shape.arrowdown, title="Countdown 13", text="⑬", location=location.abovebar, color=color.red)
+plotshape(showTDs and perfectCountdown and showCountdown and cdownCount == 13 and cdownShort and cdownCount[1] == 12, style=shape.arrowdown, title="Perfect CountD 13", text="⓭", location=location.abovebar, color=color.red)
+
+
+plotshape(showTDs and showCountdown and cancelCountdown, title="Countdown SR Break", location=location.belowbar, style=shape.xcross, color=cdownColour)
+
+tdstSupport = float(na)
+tdstResistance = float(na)
+tdRisk = float(na)
+riskbar = int(na)
+
+highest_2 = highest(9)
+tdstResistance := not showTDST ? na : 
+   setupLong == 9 ? highest_2 : close > tdstResistance[1] ? na : tdstResistance[1]
+lowest_2 = lowest(9)
+tdstSupport := not showTDST ? na : 
+   setupShort == 9 ? lowest_2 : close < tdstSupport[1] ? na : tdstSupport[1]
+
+alertcondition(close > tdstResistance[1] or close < tdstSupport[1], title="Close outside TDST range", message="Close outside TDST range")
+
+// plot(tdstResistance, title="TDST Resistance", color=longColour, style=plot.style_linebr)
+// plot(tdstSupport, title="TDST Support", color=shortColour, style=plot.style_linebr)
+
+plot(tdstResistance, title="TDST Resistance", color=color.red, style=plot.style_linebr)
+plot(tdstSupport, title="TDST Support", color=color.green, style=plot.style_linebr)
+
+if not showRisk
+    tdRisk := na
+    tdRisk
+else
+    if setupLong == 9
+        riskbar := -1 * lowestbars(9)[0]
+        tdRisk := low[riskbar] - tr[riskbar]
+        tdRisk
+    else
+        if setupShort == 9
+            riskbar = -1 * highestbars(9)[0]
+            tdRisk := high[riskbar] + tr[riskbar]
+            tdRisk
+        else
+            tdRisk := min(open, close) < tdRisk[1] and max(open, close) > tdRisk[1] ? na : tdRisk[1]
+            tdRisk
+
+plot(tdRisk, title="TD Risk", color=color.black, style=plot.style_cross, linewidth=1)
+
+// -------------------- end -------------------- //
