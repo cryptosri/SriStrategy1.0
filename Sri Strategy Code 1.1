@@ -3,7 +3,7 @@
 
 //@version=4
 
-study(title="SRI Strategy 1.0", shorttitle="SRI Strategy", overlay=true)
+study(title="SRI Strategy 1.1", shorttitle="SRI Strategy", overlay=true)
  
 
 shemas = input(false, "Show EMAs")
@@ -13,7 +13,8 @@ showTDs = input(true, title="Show TD Setup and Countdown")
 shichim = input(false, title="Show Ichimoku Clouds")
 shbb = input(false, title="Show Bolinger Bands")
 shst = input(false, title="Show Super Trend")
-shbbs = input(false, title="Show BB Signals")
+shbbs = input(true, title="Show BB Signals")
+shbbdc = input(false, title="Show BB Aggressive Signals")
 
 //colors
 
@@ -176,17 +177,22 @@ d = sma(k, periodD)
 
 // DEMA
 
-lengthd = input(15, minval=1, title="MA Length", group="BB Strategy MA")
+lengthd = input(15, minval=1, title="BB MA Length", group="BB Strategy MA")
 e1 = ema(close, lengthd)
 e2 = ema(e1, lengthd)
 dema = 2 * e1 - e2
+
+lengthdc = input(20, minval=1, title="BB MA2 Length",  group="BB Strategy MA")
+lowerdc = lowest(lengthdc)
+upperdc = highest(lengthdc)
+basisdc = avg(upperdc, lowerdc)
 
 
 // RSI
 
 rsibb = rsi(close, 2)
-rsibbos = 9
-rsibbob = 91
+rsibbos = input(9, "BB RSI OS Level", group="BB RSI")
+rsibbob = input(91, "BB RSI OB Level", group="BB RSI")
 
 
 //BB Strategy
@@ -197,6 +203,14 @@ longbb = open < close and close > dema and (low < lower or low[1] < lower) and k
     
 plotshape(shbbs ? shortbb : na, style=shape.labeldown, color=sorange0, location=location.abovebar, size=size.tiny, title="Short Label", text= "SS", textcolor=color.white)
 plotshape(shbbs ? longbb : na, style=shape.labelup, color=sblue0, location=location.belowbar, size=size.tiny, title="Long Label", text= "BB", textcolor=color.white)
+
+
+shdc = close < open and close < upper and (high > upper or high[1] > upper) and ((high >= upperdc) or (high[1] >= upperdc)) and crossunder(rsibb, rsibbob)
+lodc = close > open and close > upper and (low < lower or low[1] < lower) and (low <= lowerdc  or low[1] <= lowerdc) and crossover(rsibb, rsibbos)
+
+plotshape(shbbdc ? shdc :na, style=shape.labeldown, color=color.red, location=location.abovebar, size=size.tiny, title="Short Label", text= "S", textcolor=color.white)
+plotshape(shbbdc ? lodc :na, style=shape.labelup, color=color.green, location=location.belowbar, size=size.tiny, title="Long Label", text= "B", textcolor=color.white)
+
 
 //TD setup and Countdown
 
